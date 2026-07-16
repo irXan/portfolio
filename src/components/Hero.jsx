@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
+import { experience } from "../data/projects";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,7 @@ export default function Hero() {
       tl.from(q(".hero-bio-chunk"), { y: 18, opacity: 0, stagger: STAGGER }, STAGGER * 6);
       tl.from(q(".hero-cta-row > *"), { y: 14, opacity: 0, stagger: STAGGER, duration: 0.75 }, STAGGER * 7);
       tl.from(q(".hero-stat"), { y: 20, opacity: 0, stagger: STAGGER, duration: 0.75 }, STAGGER * 8);
+      tl.from(q(".hero-exp-card"), { y: 20, opacity: 0, stagger: STAGGER * 0.8 }, STAGGER * 9);
 
       let st;
       if (parallaxRef.current) {
@@ -82,7 +84,8 @@ export default function Hero() {
 
   return (
     <section id="home" ref={rootRef} className="hero-section" aria-labelledby="hero-heading">
-      <div className="hero-image-slot">
+      {/* Centered Image */}
+      <div className="hero-image-centered">
         {!photoFailed && (
           <div ref={parallaxRef} style={{ position: "absolute", inset: 0, willChange: "transform" }}>
             <img
@@ -97,10 +100,10 @@ export default function Hero() {
             />
           </div>
         )}
-        <div className="hero-image-scrim" />
       </div>
 
-      <div className="hero-content">
+      {/* Left Content Overlay */}
+      <div className="hero-left-content">
         <div className="hero-copy-wrap">
           <p
             className="hero-eyebrow hero-ready"
@@ -227,29 +230,6 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* <div className="hero-cta-row hero-ready">
-            <motion.button
-              type="button"
-              className="ui-btn ui-btn--primary"
-              onClick={scrollToProjects}
-              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-              whileTap={{ scale: 0.98 }}
-            >
-              View work
-            </motion.button>
-            <motion.a
-              className="ui-btn ui-btn--ghost"
-              href="https://github.com/irXan"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor
-              whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-              whileTap={{ scale: 0.98 }}
-            >
-              GitHub ↗
-            </motion.a>
-          </div> */}
-
           <div className="hero-stats-row hero-ready">
             {[
               ["1+", "Years shipping"],
@@ -262,6 +242,47 @@ export default function Hero() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Right Experience Cards */}
+      <div className="hero-right-experience">
+        <div className="hero-exp-list">
+          {experience.slice(0, 3).map((item, i) => (
+            <article key={i} className="hero-exp-card">
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.75rem",
+                  color: "var(--color-accent)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {item.year}
+              </p>
+
+              <h3 style={{ fontSize: "1rem", fontWeight: 700, letterSpacing: "-0.02em", marginBottom: "0.25rem", lineHeight: "var(--lh-heading)" }}>
+                {item.role}
+              </h3>
+
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.75rem",
+                  color: "var(--color-text-subtle)",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                @ {item.company}
+              </p>
+
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--color-text-muted)", lineHeight: "1.6", fontWeight: 400 }}>
+                {item.description}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
