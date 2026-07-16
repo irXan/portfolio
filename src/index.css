@@ -299,45 +299,45 @@ h3 {
   min-height: 100dvh;
   overflow: hidden;
   background: var(--color-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.hero-image-centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(45vw, 550px);
-  height: min(65vh, 800px);
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(255, 107, 43, 0.2), 0 0 40px rgba(124, 58, 237, 0.1);
-}
-
-.hero-image-centered img {
+.hero-image-background {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-image-background img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center 18%;
-  transform: scale(1.02);
-  filter: saturate(1.05) contrast(1.05);
+  object-position: center 15%;
+  transform: scale(1.03);
+  filter: saturate(1.08) contrast(1.1);
+}
+
+.hero-content-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  overflow: hidden;
 }
 
 .hero-left-content {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  width: 45%;
-  max-width: 500px;
-  padding: 0 clamp(2rem, 4vw, 3.5rem);
+  flex: 0 0 auto;
+  width: 50%;
+  max-width: 600px;
+  padding: clamp(2rem, 5vw, 4rem);
+  padding-right: clamp(1rem, 3vw, 2.5rem);
 }
 
 .hero-copy-wrap {
@@ -466,15 +466,12 @@ h3 {
   font-size: 0.8125rem;
 }
 
-.hero-right-experience {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  width: 40%;
-  max-width: 450px;
-  padding: 0 clamp(2rem, 4vw, 3.5rem);
+.hero-right-content {
+  flex: 0 0 auto;
+  width: 45%;
+  max-width: 500px;
+  padding: clamp(2rem, 5vw, 4rem);
+  padding-left: clamp(1rem, 3vw, 2.5rem);
   display: flex;
   align-items: center;
 }
@@ -482,113 +479,110 @@ h3 {
 .hero-exp-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .hero-exp-card {
-  background: rgba(255, 107, 43, 0.04);
-  border: 1px solid rgba(255, 107, 43, 0.15);
-  border-radius: 6px;
-  padding: 1.25rem;
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 107, 43, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
 }
 
 .hero-exp-card:hover {
-  background: rgba(255, 107, 43, 0.08);
-  border-color: rgba(255, 107, 43, 0.3);
-  transform: translateY(-2px);
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 107, 43, 0.4);
+  transform: translateY(-4px);
 }
 
-@media (max-width: 1400px) {
-  .hero-image-centered {
-    width: min(45vw, 500px);
-    height: min(55vh, 650px);
-  }
-
-  .hero-left-content {
-    width: 45%;
-  }
-
-  .hero-right-experience {
-    width: 45%;
-  }
-}
-
-@media (max-width: 1100px) {
-  .hero-section {
+@media (max-width: 1200px) {
+  .hero-content-wrapper {
     flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 3rem;
-  }
-
-  .hero-image-centered {
-    position: relative;
-    transform: none;
-    width: 100%;
-    height: 300px;
-    margin: 0 0 2rem;
-    top: auto;
-    left: auto;
+    justify-content: center;
   }
 
   .hero-left-content {
-    position: relative;
-    transform: none;
-    left: auto;
-    top: auto;
     width: 100%;
-    max-width: 100%;
-    padding: 2rem clamp(1.5rem, 5vw, 3rem);
+    max-width: none;
+    padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
   }
 
-  .hero-right-experience {
-    position: relative;
-    transform: none;
-    right: auto;
-    top: auto;
+  .hero-right-content {
     width: 100%;
-    max-width: 100%;
-    padding: 0 clamp(1.5rem, 5vw, 3rem);
+    max-width: none;
+    padding: clamp(1rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 4rem);
   }
 
   .hero-exp-list {
-    gap: 1.5rem;
-  }
-
-  .hero-copy-wrap {
-    max-width: 100%;
-    padding-left: 1.5rem;
-  }
-
-  .hero-stats-row {
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 0.5rem;
-    padding-top: 1rem;
-  }
-  
-  .hero-stat {
-    padding: 0.75rem;
+    gap: 1.25rem;
   }
 }
 
-@media (max-width: 960px) {
-  .hero-image-centered {
-    height: 250px;
+@media (max-width: 768px) {
+  .hero-content-wrapper {
+    padding-top: 2rem;
   }
 
   .hero-left-content {
-    padding: 1.5rem clamp(1rem, 5vw, 2rem);
+    padding: 2rem 1.5rem 1rem;
   }
 
-  .hero-right-experience {
-    padding: 0 clamp(1rem, 5vw, 2rem);
+  .hero-right-content {
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  .hero-exp-list {
+    gap: 1rem;
+  }
+
+  .hero-exp-card {
+    padding: 1.25rem;
+  }
+
+  .hero-stats-row {
+    gap: 0.75rem;
+  }
+
+  .hero-stat {
+    padding: 0.85rem 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: auto;
+  }
+
+  .hero-content-wrapper {
+    padding-top: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-left-content {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .hero-right-content {
+    width: 100%;
+    padding: 1rem 1.5rem 1.5rem;
   }
 
   .hero-exp-card {
     padding: 1rem;
+  }
+
+  .hero-stats-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+
+  .hero-stat {
+    padding: 0.75rem 0.6rem;
   }
 }
 
